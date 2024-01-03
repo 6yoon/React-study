@@ -1,10 +1,15 @@
 .App {
-  text-align: center;
 }
 
 .makingBlog{
+  text-align: center;
   background-color: #000;
   height: 70px;
   color: #fff;
   padding-top: 8px;
+}
+
+.list{
+  border-bottom: #000 1px solid;
+  padding-left: 15px;
 }
