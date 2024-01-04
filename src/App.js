@@ -57,8 +57,42 @@ function App() {
         copy.sort();
         b(copy);
       }}>정렬</button>
+
+      <Modal></Modal>
+      <Modal/>
+
     </div>
   );//return 안에는 병렬로 태그 2개 이상 기입할 수 없다 (하나의 div 안에 작성)
+}
+
+//컴포넌트 만들기 (대문자로 시작)
+function Modal(){
+  return(
+    <> {/* 병렬 기입을 위해 의미없는 div로 감싸는 대신 사용하는 fragment */}
+    <div className="modal">
+      <h4>title</h4>
+      <p>date</p>
+      <p>contents</p>
+    </div>
+    <div></div>
+    </>
+  );
+  /* 
+    컴포넌트 만드는 경우
+      1. 반복적인 html 축약
+      2. 큰 페이지
+      3. 자주 변경되는 것들
+
+    컴포넌트의 단점
+      다른 함수 내의 state를 가져다 쓸 때 문제 발생
+    
+    컴포넌트 만드는 방법 2
+    const Modal = () => {
+      return(
+
+      )
+    }
+   */
 }
 
 export default App;

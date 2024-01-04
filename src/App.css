@@ -14,3 +14,9 @@
   border-bottom: #000 1px solid;
   padding-left: 15px;
 }
+
+.modal{
+  background-color: #eee;
+  padding: 15px;
+  margin-top: 10px;
+}
