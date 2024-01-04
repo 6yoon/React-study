@@ -30,6 +30,8 @@ function App() {
 
   let [input, setInput] = useState('');
 
+  let [date, setDate] = useState(['2024. 1. 4. 오후 11:11:11', '2024. 1. 4. 오후 11:11:11', '2024. 1. 4. 오후 11:11:11']);
+
   /* 
     state 변경하는 법
     - 등호로 변경 금지 
@@ -82,8 +84,7 @@ function App() {
               }}>삭제</button>
               
           </h4>
-
-          <p>2024.01.04</p>
+          <p>{date[i]}</p>
         </div>
         })
       }
@@ -119,13 +120,16 @@ function App() {
       }}></input>
     
     <button onClick={ () => {
+      if(input == '')return;
       let copy = [...a];
-      copy.push(input);
+      copy.unshift(input);
       b(copy);
-      console.log(copy);
       let likeCopy = [...like];
-      likeCopy.push(0);
+      likeCopy.unshift(0);
       setLike(likeCopy);
+      let dateCopy = [...date];
+      dateCopy.unshift(new Date().toLocaleString());
+      setDate(dateCopy);
     }}>업로드</button>
 
       {
