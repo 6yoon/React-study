@@ -141,7 +141,8 @@ function App() {
            b(copy);
            }
         }
-        i = {i}/> : null //if문 대신 삼항 연산자 사용
+        i = {i}
+        date = {date}/> : null //if문 대신 삼항 연산자 사용
       }
       {/*
         props 문법: 부모 -> 자식 state 전송
@@ -160,8 +161,8 @@ function Modal(props){
     <> {/* 병렬 기입을 위해 의미없는 div로 감싸는 대신 사용하는 fragment */}
     <div className="modal">
       <h4>{props.a[props.i]}</h4>
-      <p>date</p>
-      <p>contents</p>
+      <p>{props.date[props.i]}</p>
+      <p>글 내용</p>
       <button onClick={props.rename}>글 수정</button>
     </div>
     <div></div>
