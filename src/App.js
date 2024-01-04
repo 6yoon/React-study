@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import userEvent from '@testing-library/user-event';
 
 function App() {
 
@@ -24,6 +25,9 @@ function App() {
   let [like, setLike] = useState([0, 0, 0]);
 
   let [modal, setModal] = useState(false);
+
+  let [i, setI] = useState(0);
+
 
   /* 
     state 변경하는 법
@@ -57,7 +61,9 @@ function App() {
       {
         a.map(function(a, i){ //a는 데이터값, i는 인덱스값
           return <div className="list" key={i}>
-          <h4 onClick={ () => { setModal(!modal) }}>{ a }
+          <h4 onClick={ () => { setModal(!modal)
+          setI(i)
+          }}>{ a }
           <span onClick={ () => {
             let copy = [...like];
             copy[i] += 1;
@@ -68,7 +74,13 @@ function App() {
         </div>
         })
       }
-
+      { /*
+        array 객체 메소드 map()
+          1. 자료의 갯수만큼 함수 안의 코드 실행
+          2. 함수의 매개변수는 array 내의 자료
+          3. return하면 array로 담아준다
+      */}
+      
       <button onClick={ () => {
          //array/object는 원본을 보존하는 것이 좋다 (array를 copy 변수에 복사) 
         let copy = [...a]; //array가 가리키는 화살표를 아예 새로 만든다, ...로 괄호를 없애고 다시 []씌운다
@@ -88,28 +100,38 @@ function App() {
         2. UI의 현재 상태를 state로 조정
         3. state에 따라 UI가 어떻게 보일지 작성 
     */}
-      {
-        modal == true ? <Modal/> : null //if문 대신 삼항 연산자 사용
-      }
 
-      { /*
-        array 객체 메소드 map()
-          1. 자료의 갯수만큼 함수 안의 코드 실행
-          2. 함수의 매개변수는 array 내의 자료
-          3. return하면 array로 담아준다
+      {
+        modal == true ? <Modal a = {a}
+        rename = {
+          () => {
+           let copy = [...a];
+           copy[0] ='ㄷ망원 1등 빵집 브릭 베이글';
+           b(copy);
+           }
+        }
+        i = {i}/> : null //if문 대신 삼항 연산자 사용
+      }
+      {/*
+        props 문법: 부모 -> 자식 state 전송
+        1. <자식컴포넌트 작명 = {state 이름}>
+        2. props 매개변수 등록 후 props.작명 사용 
+        * 부모 -> 자식 전송만 가능, 자식 -> 부모 전송 불가능  
       */}
+
     </div>
   );//return 안에는 병렬로 태그 2개 이상 기입할 수 없다 (하나의 div 안에 작성)
 }
 
 //컴포넌트 만들기 (대문자로 시작)
-function Modal(){
+function Modal(props){
   return(
     <> {/* 병렬 기입을 위해 의미없는 div로 감싸는 대신 사용하는 fragment */}
     <div className="modal">
-      <h4>title</h4>
+      <h4>{props.a[props.i]}</h4>
       <p>date</p>
       <p>contents</p>
+      <button onClick={props.rename}>글 수정</button>
     </div>
     <div></div>
     </>
