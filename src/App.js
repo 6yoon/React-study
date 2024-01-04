@@ -23,8 +23,6 @@ function App() {
 
   let [like, addLike] = useState(0);
 
-  let [modal, setModal] = useState(false);
-
   /* 
     state 변경하는 법
     - 등호로 변경 금지 
@@ -34,41 +32,34 @@ function App() {
       <div className="makingBlog"> {/* JSX는 className 사용 */}
         <h3>{blogName}</h3>
       </div>
-
       <h4 style ={{color : 'gray', fontSize : '20px', paddingLeft : '10px'}}>{post1}</h4>
       <hr></hr>
-
       <div className="list">
         <h4>{ a[0] } <span onClick={ () => { addLike(like+1) } }>👍</span> {like}</h4>
         <p>2024.01.04</p>
       </div>
-
       <div className="list">
         <h4>{ a[1] }</h4>
         <p>2024.01.04</p>
       </div>
-
       <div className="list">
-        <h4 onClick={ () => { setModal(!modal) }}>{ a[2] }</h4>
+        <h4>{ a[2] }</h4>
         <p>2024.01.04</p>
       </div>
-
       <button onClick={ () => {
         ; //array/object는 원본을 보존하는 것이 좋다 (array를 copy 변수에 복사) 
         let copy = [...a]; //array가 가리키는 화살표를 아예 새로 만든다, ...로 괄호를 없애고 다시 []씌운다
         copy[0] ='ㄷ망원 1등 빵집 브릭 베이글';
         b(copy); //state 변경 함수 동작 원리: 기존(a)과 신규(copy)가 같으면(==) 변경해주지 않는다 
         }}>새로고침</button>
-
       <button onClick={ () => {
         let copy = [...a];
         copy.sort();
         b(copy);
       }}>정렬</button>
 
-      {
-        modal == true ? <Modal/> : null //if문 대신 삼항 연산자 사용
-      }
+      <Modal></Modal>
+      <Modal/>
 
     </div>
   );//return 안에는 병렬로 태그 2개 이상 기입할 수 없다 (하나의 div 안에 작성)
@@ -98,17 +89,10 @@ function Modal(){
     컴포넌트 만드는 방법 2
     const Modal = () => {
       return(
-        <div></div>
+
       )
     }
    */
-
-    /*
-      동적인 UI 만들기
-        1. html/css 미리 디자인 완성
-        2. UI의 현재 상태를 state로 조장
-        3. state에 따라 UI가 어떻게 보일지 작성 
-    */
 }
 
 export default App;
