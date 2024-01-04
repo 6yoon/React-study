@@ -21,7 +21,7 @@ function App() {
 
   let blogName = 'React Blog';
 
-  let [like, addLike] = useState(0);
+  let [like, setLike] = useState([0, 0, 0]);
 
   let [modal, setModal] = useState(false);
 
@@ -29,7 +29,7 @@ function App() {
     state 변경하는 법
     - 등호로 변경 금지 
   */
- 
+
   return (
     <div className="App">
       <div className="makingBlog"> {/* JSX는 className 사용 */}
@@ -39,7 +39,7 @@ function App() {
       <h4 style ={{color : 'gray', fontSize : '20px', paddingLeft : '10px'}}>{post1}</h4>
       <hr></hr>
 
-      <div className="list">
+{/*       <div className="list">
         <h4>{ a[0] } <span onClick={ () => { addLike(like+1) } }>👍</span> {like}</h4>
         <p>2024.01.04</p>
       </div>
@@ -52,10 +52,25 @@ function App() {
       <div className="list">
         <h4 onClick={ () => { setModal(!modal) }}>{ a[2] }</h4>
         <p>2024.01.04</p>
-      </div>
+      </div> */}
+
+      {
+        a.map(function(a, i){ //a는 데이터값, i는 인덱스값
+          return <div className="list" key={i}>
+          <h4 onClick={ () => { setModal(!modal) }}>{ a }
+          <span onClick={ () => {
+            let copy = [...like];
+            copy[i] += 1;
+            setLike(copy);
+            } }>👍</span> {like[i]}
+          </h4>
+          <p>2024.01.04</p>
+        </div>
+        })
+      }
 
       <button onClick={ () => {
-        ; //array/object는 원본을 보존하는 것이 좋다 (array를 copy 변수에 복사) 
+         //array/object는 원본을 보존하는 것이 좋다 (array를 copy 변수에 복사) 
         let copy = [...a]; //array가 가리키는 화살표를 아예 새로 만든다, ...로 괄호를 없애고 다시 []씌운다
         copy[0] ='ㄷ망원 1등 빵집 브릭 베이글';
         b(copy); //state 변경 함수 동작 원리: 기존(a)과 신규(copy)가 같으면(==) 변경해주지 않는다 
@@ -77,6 +92,12 @@ function App() {
         modal == true ? <Modal/> : null //if문 대신 삼항 연산자 사용
       }
 
+      { /*
+        array 객체 메소드 map()
+          1. 자료의 갯수만큼 함수 안의 코드 실행
+          2. 함수의 매개변수는 array 내의 자료
+          3. return하면 array로 담아준다
+      */}
     </div>
   );//return 안에는 병렬로 태그 2개 이상 기입할 수 없다 (하나의 div 안에 작성)
 }
