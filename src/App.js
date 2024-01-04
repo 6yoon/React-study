@@ -28,6 +28,7 @@ function App() {
 
   let [i, setI] = useState(0);
 
+  let [input, setInput] = useState('');
 
   /* 
     state 변경하는 법
@@ -59,17 +60,29 @@ function App() {
       </div> */}
 
       {
-        a.map(function(a, i){ //a는 데이터값, i는 인덱스값
+        a.map(function(aData, i){ //a는 데이터값, i는 인덱스값
           return <div className="list" key={i}>
+
           <h4 onClick={ () => { setModal(!modal)
           setI(i)
-          }}>{ a }
-          <span onClick={ () => {
+          }}>{ aData }
+
+          <span onClick={ (e) => {
+            e.stopPropagation(); //span을 눌렀을때 h4까지 눌리는 이벤트 버블링을 막아준다 
             let copy = [...like];
             copy[i] += 1;
             setLike(copy);
             } }>👍</span> {like[i]}
+
+            <button onClick={ (e) => {
+              e.stopPropagation();
+              let copy = [...a];
+              copy.splice(i, 1);
+              b(copy);
+              }}>삭제</button>
+              
           </h4>
+
           <p>2024.01.04</p>
         </div>
         })
@@ -100,6 +113,20 @@ function App() {
         2. UI의 현재 상태를 state로 조정
         3. state에 따라 UI가 어떻게 보일지 작성 
     */}
+
+    <input onChange={ (e) => {
+      setInput(e.target.value);//state 변경 함수는 늦게 처리 되므로 믿의 cosole.log가 먼저 실행됨
+      }}></input>
+    
+    <button onClick={ () => {
+      let copy = [...a];
+      copy.push(input);
+      b(copy);
+      console.log(copy);
+      let likeCopy = [...like];
+      likeCopy.push(0);
+      setLike(likeCopy);
+    }}>업로드</button>
 
       {
         modal == true ? <Modal a = {a}
